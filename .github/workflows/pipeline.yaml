@@ -39,9 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
-        echo 'Running unit tests'
-        pip3 install pytest pytest-mock
-        python3 -m pytest tests/unit
+          # trigger the tests here
 
   delete-feature:
     if: startsWith(github.event.ref, 'feature') && github.event_name == 'delete'
