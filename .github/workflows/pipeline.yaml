@@ -14,18 +14,18 @@ env:
   PIPELINE_USER_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   SAM_TEMPLATE: template.yaml
   TESTING_STACK_NAME: lucid-web-api-dev
-  TESTING_PIPELINE_EXECUTION_ROLE: arn:aws:iam::839400418997:role/aws-sam-cli-managed-dev-pipe-PipelineExecutionRole-QB2WP2OPR3OD
-  TESTING_CLOUDFORMATION_EXECUTION_ROLE: arn:aws:iam::839400418997:role/aws-sam-cli-managed-dev-p-CloudFormationExecutionR-1NSNAP8R4XH5W
-  TESTING_ARTIFACTS_BUCKET: aws-sam-cli-managed-dev-pipeline-artifactsbucket-benj3r875t3q
+  TESTING_PIPELINE_EXECUTION_ROLE: arn:aws:iam::839400418997:role/aws-sam-cli-managed-dev-pipe-PipelineExecutionRole-FREJSOOE15QJ
+  TESTING_CLOUDFORMATION_EXECUTION_ROLE: arn:aws:iam::839400418997:role/aws-sam-cli-managed-dev-p-CloudFormationExecutionR-1VENH8BZ0JT8U
+  TESTING_ARTIFACTS_BUCKET: aws-sam-cli-managed-dev-pipeline-artifactsbucket-1h3vqgimx83jh
   # If there are functions with "Image" PackageType in your template,
   # uncomment the line below and add "--image-repository ${TESTING_IMAGE_REPOSITORY}" to
   # testing "sam package" and "sam deploy" commands.
   # TESTING_IMAGE_REPOSITORY = '0123456789.dkr.ecr.region.amazonaws.com/repository-name'
   TESTING_REGION: us-east-1
-  PROD_STACK_NAME: lucid-web-api-prod
-  PROD_PIPELINE_EXECUTION_ROLE: arn:aws:iam::839400418997:role/aws-sam-cli-managed-prod-pip-PipelineExecutionRole-1SDBUJSSPMQZJ
-  PROD_CLOUDFORMATION_EXECUTION_ROLE: arn:aws:iam::839400418997:role/aws-sam-cli-managed-prod-CloudFormationExecutionR-41XEI99LZ991
-  PROD_ARTIFACTS_BUCKET: aws-sam-cli-managed-prod-pipeline-artifactsbucket-1sradiuqhd3bl
+  PROD_STACK_NAME: lucid-web-app-prod
+  PROD_PIPELINE_EXECUTION_ROLE: arn:aws:iam::839400418997:role/aws-sam-cli-managed-prod-pip-PipelineExecutionRole-43O6VJNNMZIL
+  PROD_CLOUDFORMATION_EXECUTION_ROLE: arn:aws:iam::839400418997:role/aws-sam-cli-managed-prod-CloudFormationExecutionR-FNNLPP6STBYJ
+  PROD_ARTIFACTS_BUCKET: aws-sam-cli-managed-prod-pipeline-artifactsbucket-w4g6kodgv5v8
   # If there are functions with "Image" PackageType in your template,
   # uncomment the line below and add "--image-repository ${PROD_IMAGE_REPOSITORY}" to
   # prod "sam package" and "sam deploy" commands.
