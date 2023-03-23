@@ -32,6 +32,7 @@ env:
   # PROD_IMAGE_REPOSITORY = '0123456789.dkr.ecr.region.amazonaws.com/repository-name'
   PROD_REGION: us-east-1
   API_DOMAIN_NAME: ${{ secrets.API_DOMAIN_NAME }}
+  API_CERT_ARN: ${{ secrets.API_CERT_ARN }}
 
 jobs:
   test:
@@ -86,7 +87,7 @@ jobs:
       - uses: aws-actions/setup-sam@v2
         with:
           use-installer: true
-      - run: sam build --template ${SAM_TEMPLATE} --parameter-overrides ApiDomainName=${{ env.API_DOMAIN_NAME }} --use-container
+      - run: sam build --template ${SAM_TEMPLATE} --parameter-overrides ApiDomainName=${{ env.API_DOMAIN_NAME }} ApiCertArn=${{ env.API_CERT_ARN }} --use-container
 
       - name: Assume the testing pipeline user role
         uses: aws-actions/configure-aws-credentials@v2
@@ -104,7 +105,7 @@ jobs:
         run: |
           sam deploy --stack-name $(echo ${GITHUB_REF##*/} | tr -cd '[a-zA-Z0-9-]') \
             --capabilities CAPABILITY_IAM \
-            --parameter-overrides ApiDomainName=${{ env.API_DOMAIN_NAME }} \ 
+            --parameter-overrides ApiDomainName=${{ env.API_DOMAIN_NAME }} ApiCertArn=${{ env.API_CERT_ARN }} \
             --region ${TESTING_REGION} \
             --s3-bucket ${TESTING_ARTIFACTS_BUCKET} \
             --no-fail-on-empty-changeset \
@@ -121,7 +122,7 @@ jobs:
           use-installer: true
 
       - name: Build resources
-        run: sam build --template ${SAM_TEMPLATE} --parameter-overrides ApiDomainName=${{ env.API_DOMAIN_NAME }} --use-container
+        run: sam build --template ${SAM_TEMPLATE} --parameter-overrides ApiDomainName=${{ env.API_DOMAIN_NAME }} ApiCertArn=${{ env.API_CERT_ARN }} --use-container
 
       - name: Assume the testing pipeline user role
         uses: aws-actions/configure-aws-credentials@v2
@@ -202,7 +203,7 @@ jobs:
             --s3-bucket ${TESTING_ARTIFACTS_BUCKET} \
             --no-fail-on-empty-changeset \
             --no-confirm-changeset \
-            --parameter-overrides ApiDomainName=${{ env.API_DOMAIN_NAME }} \
+            --parameter-overrides ApiDomainName=${{ env.API_DOMAIN_NAME }} ApiCertArn=${{ env.API_CERT_ARN }} \
             --role-arn ${TESTING_CLOUDFORMATION_EXECUTION_ROLE}
 
   integration-test:
@@ -250,5 +251,5 @@ jobs:
             --s3-bucket ${PROD_ARTIFACTS_BUCKET} \
             --no-fail-on-empty-changeset \
             --no-confirm-changeset \
-            --role-arn ${PROD_CLOUDFORMATION_EXECUTION_ROLE}
-            --parameter-overrides ApiDomainName=${{ env.API_DOMAIN_NAME }}
+            --role-arn ${PROD_CLOUDFORMATION_EXECUTION_ROLE} \
+            --parameter-overrides ApiDomainName=${{ env.API_DOMAIN_NAME }} ApiCertArn=${{ env.API_CERT_ARN }}
