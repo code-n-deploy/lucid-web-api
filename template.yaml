@@ -24,7 +24,7 @@ Resources:
       Description: The entry-point to the Lucid Web App Api
       StageName: Dev
       Cors:
-        AllowMethods: "'GET, POST, OPTIONS'"
+        AllowMethods: "'GET, POST'"
         AllowOrigin: "*" #TODO restrict to lucid.codeanddemand.com
         AllowHeaders: "'Content-type, x-api-key, Authorization'"
       Domain:
