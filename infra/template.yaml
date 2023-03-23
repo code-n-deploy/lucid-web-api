@@ -1,20 +1,33 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  lucid-web-api
+  SAM Template for lucid-web-api
 
-  Sample SAM Template for lucid-web-api
+Parameters:
+  ApiDomainName:
+    Description: The Domain that the Api Will be accessible from
+    Type: String
+  
 
-# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
     Timeout: 3
     MemorySize: 128
 
 Resources:
-  HelloWorldFunction:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+
+  ApiGateway:
+    Type: AWS::Serverless::Api
     Properties:
+      Name: Lucid-Web-Api-Gateway
+      Description: The entry-point to the Lucid Web App Api
+      Domain:
+        DomainName: !Ref ApiDomainName
+        BasePath:
+          - /  
+
+  HelloWorldFunction:
+    Type: AWS::Serverless::Function
       CodeUri: hello_world/
       Handler: app.lambda_handler
       Runtime: python3.9
@@ -22,8 +35,9 @@ Resources:
         - x86_64
       Events:
         HelloWorld:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Type: Api
           Properties:
+            RestApiId: !Ref ApiGateway
             Path: /hello
             Method: get
 
