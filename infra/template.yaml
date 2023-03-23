@@ -9,7 +9,7 @@ Parameters:
     Type: String
   ApiCertArn: 
     Description: Certificate arn for the api gateway
-    Type: AWS::CertificateManager::Certificate::Id
+    Type: String
 
 Globals:
   Function:
