@@ -21,6 +21,7 @@ Resources:
     Properties:
       Name: Lucid-Web-Api-Gateway
       Description: The entry-point to the Lucid Web App Api
+      StageName: Dev
       Domain:
         DomainName: !Ref ApiDomainName
 
