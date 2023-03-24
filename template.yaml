@@ -8,11 +8,13 @@ Parameters:
     Description: The Domain that the Api Will be accessible from
     Type: String
   ApiCertArn: 
-    Description: Certificate arn for the api gateway
-    Type: String
+    Description: The Hosted Zone for the API domain
+    Type: 'AWS::SSM::Parameter::Value<String>'
+    Default: '/lucid/api/certificate-arn'
   HostedZoneId:
-    Description: The Hosted Zone Id for the Domain
-    Type: String
+    Description: The Hosted Zone for the API domain
+    Type: 'AWS::SSM::Parameter::Value<String>'
+    Default: '/lucid/hosted-zone/id'
 
 Globals:
   Function:
