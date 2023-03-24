@@ -8,11 +8,6 @@ Parameters:
     Description: The Domain that the Api Will be accessible from
     Type: String
 
-Environment:
-  Variables:
-    ApiCertArn: '{{resolve:ssm:/lucid/api/certificate-arn}}'
-    HostedZoneId: '{{resolve:ssm:/lucid/hosted-zone/id}}'
-
 Globals:
   Function:
     Timeout: 3
@@ -27,9 +22,9 @@ Resources:
       StageName: Dev
       Domain:
         DomainName: !Ref ApiDomainName
-        CertificateArn: !Ref ApiCertArn
+        CertificateArn: '{{resolve:ssm:/lucid/api/certificate-arn}}'
         Route53:
-          HostedZoneId: !Ref HostedZoneId
+          HostedZoneId: '{{resolve:ssm:/lucid/hosted-zone/id}}'
 
   HelloWorldFunction:
     Type: AWS::Serverless::Function
