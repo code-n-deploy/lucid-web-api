@@ -10,6 +10,9 @@ Parameters:
   ApiCertArn: 
     Description: Certificate arn for the api gateway
     Type: String
+  HostedZoneId:
+    Description: The Hosted Zone Id for the Domain
+    Type: String
 
 Globals:
   Function:
@@ -26,7 +29,25 @@ Resources:
       Domain:
         DomainName: !Ref ApiDomainName
         CertificateArn: !Ref ApiCertArn
+      Route53:
+        HostedZoneId: !Ref HostedZoneId
 
+  RecordSetForSubBucket:
+    Type: AWS::Route53::RecordSetGroup
+    Properties:
+      HostedZoneName: !Sub 
+        - ${Domain}.
+        - Domain: !Ref SubDomainName
+      Comment: Zone apex alias.
+      RecordSets:
+      -
+        Name: !Sub
+            - www.${Domain}
+            - Domain: !Ref SubDomainName
+        Type: CNAME
+        TTL: 900
+        ResourceRecords:
+        - !GetAtt ApiGateway.
   HelloWorldFunction:
     Type: AWS::Serverless::Function
     Properties:
