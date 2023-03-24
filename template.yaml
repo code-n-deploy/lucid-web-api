@@ -29,8 +29,8 @@ Resources:
       Domain:
         DomainName: !Ref ApiDomainName
         CertificateArn: !Ref ApiCertArn
-      Route53:
-        HostedZoneId: !Ref HostedZoneId
+        Route53:
+          HostedZoneId: !Ref HostedZoneId
 
   RecordSetForSubBucket:
     Type: AWS::Route53::RecordSetGroup
