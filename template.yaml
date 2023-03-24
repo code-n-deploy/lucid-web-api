@@ -32,22 +32,6 @@ Resources:
         Route53:
           HostedZoneId: !Ref HostedZoneId
 
-  RecordSetForSubBucket:
-    Type: AWS::Route53::RecordSetGroup
-    Properties:
-      HostedZoneName: !Sub 
-        - ${Domain}.
-        - Domain: !Ref SubDomainName
-      Comment: Zone apex alias.
-      RecordSets:
-      -
-        Name: !Sub
-            - www.${Domain}
-            - Domain: !Ref SubDomainName
-        Type: CNAME
-        TTL: 900
-        ResourceRecords:
-        - !GetAtt ApiGateway.
   HelloWorldFunction:
     Type: AWS::Serverless::Function
     Properties:
