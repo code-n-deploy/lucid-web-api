@@ -33,6 +33,7 @@ env:
   PROD_REGION: us-east-1
   API_DOMAIN_NAME: ${{ secrets.API_DOMAIN_NAME }}
   API_CERT_ARN: ${{ secrets.API_CERT_ARN }}
+  API_TESTING_DOMAIN: ${{ secrets.API_TESTING_DOMAIN }}
 
 jobs:
   test:
@@ -203,7 +204,7 @@ jobs:
             --s3-bucket ${TESTING_ARTIFACTS_BUCKET} \
             --no-fail-on-empty-changeset \
             --no-confirm-changeset \
-            --parameter-overrides ApiDomainName=${{ env.API_DOMAIN_NAME }} ApiCertArn=${{ env.API_CERT_ARN }} \
+            --parameter-overrides ApiDomainName=${{ env.API_TESTING_DOMAIN }} ApiCertArn=${{ env.API_CERT_ARN }} \
             --role-arn ${TESTING_CLOUDFORMATION_EXECUTION_ROLE}
 
   integration-test:
